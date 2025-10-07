@@ -17,8 +17,8 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -26,32 +26,39 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --whatsapp: 142 70% 49%;
+    --whatsapp-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 258 90% 66%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(258, 90%, 66%) 0%, hsl(217, 91%, 60%) 100%);
+    --gradient-success: linear-gradient(135deg, hsl(142, 71%, 45%) 0%, hsl(142, 71%, 35%) 100%);
+    --gradient-whatsapp: linear-gradient(135deg, hsl(142, 70%, 49%) 0%, hsl(168, 76%, 36%) 100%);
+    
+    --shadow-elevated: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    --shadow-card: 0 4px 15px rgba(0, 0, 0, 0.2);
+    --shadow-hover: 0 7px 20px rgba(0, 0, 0, 0.3);
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -65,8 +72,8 @@ All colors MUST be HSL.
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 258 90% 66%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -74,15 +81,22 @@ All colors MUST be HSL.
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 258 90% 66%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --whatsapp: 142 70% 49%;
+    --whatsapp-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 258 90% 66%;
+    
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -91,6 +105,151 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer utilities {
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-size: 200% 200%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+  }
+
+  .card-3d:hover {
+    transform: translateY(-10px) rotateX(5deg) scale(1.05);
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .page-enter {
+    animation: page-fade-in 0.6s ease-in-out;
+  }
+
+  @keyframes page-fade-in {
+    from {
+      opacity: 0;
+      transform: rotateY(-20deg) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: rotateY(0) scale(1);
+    }
+  }
+
+  .card-enter {
+    animation: card-slide-up 0.5s ease-out forwards;
+  }
+
+  @keyframes card-slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px) scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  .input-focus-lift {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .input-focus-lift:focus {
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-color: hsl(var(--primary));
+  }
+
+  .btn-primary {
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: var(--shadow-hover);
+    animation: button-jiggle 0.5s;
+  }
+
+  .btn-primary:active {
+    transform: translateY(-1px) scale(0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+
+  @keyframes button-jiggle {
+    0%, 100% { transform: translateY(-3px) scale(1.02) rotate(0deg); }
+    25% { transform: translateY(-3px) scale(1.02) rotate(-2deg); }
+    75% { transform: translateY(-3px) scale(1.02) rotate(2deg); }
+  }
+
+  .btn-success {
+    background: var(--gradient-success);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-success:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 7px 20px rgba(40, 167, 69, 0.4);
+  }
+
+  .btn-whatsapp {
+    background: var(--gradient-whatsapp);
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn-whatsapp:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .btn-whatsapp:hover svg {
+    animation: whatsapp-shake 0.8s cubic-bezier(.36,.07,.19,.97) both;
+  }
+
+  @keyframes whatsapp-shake {
+    10%, 90% { transform: translate3d(-1px, 0, 0) rotate(-1deg); }
+    20%, 80% { transform: translate3d(2px, 0, 0) rotate(2deg); }
+    30%, 50%, 70% { transform: translate3d(-4px, 0, 0) rotate(-4deg); }
+    40%, 60% { transform: translate3d(4px, 0, 0) rotate(4deg); }
+  }
+
+  .success-pulse {
+    animation: success-pulse 2s infinite;
+  }
+
+  @keyframes success-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+  }
+
+  .text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    background-size: 200% auto;
+    animation: shimmer 5s linear infinite;
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position: 200% center;
+    }
   }
 }
 
