@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+
 interface UserDetailsPageProps {
   onDetailsSubmit: (userDetails: { name: string; email: string; phone: string }) => void;
 }
@@ -22,6 +25,14 @@ const UserDetailsPage = ({ onDetailsSubmit }: UserDetailsPageProps) => {
         <p className="text-lg text-muted-foreground mt-2">
           Please enter your details to continue.
         </p>
+        <div className="mt-4 flex gap-4 justify-center">
+          <Link to="/auth">
+            <Button variant="outline">Sign In</Button>
+          </Link>
+          <Link to="/teacher-dashboard">
+            <Button variant="outline">Teacher Dashboard</Button>
+          </Link>
+        </div>
       </header>
       <div className="max-w-md mx-auto">
         <form onSubmit={handleSubmit} className="space-y-6">

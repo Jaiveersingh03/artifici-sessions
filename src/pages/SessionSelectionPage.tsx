@@ -1,12 +1,23 @@
-import { SESSIONS_DATA } from '@/data/sessions';
 import SessionCard from '@/components/SessionCard';
+
+interface Session {
+  id: number;
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+  instructor: string;
+  date: string;
+  time: string;
+  price: number;
+}
 
 interface SessionSelectionPageProps {
   userName: string;
   onSessionSelect: (sessionId: number) => void;
+  sessions: Session[];
 }
 
-const SessionSelectionPage = ({ userName, onSessionSelect }: SessionSelectionPageProps) => {
+const SessionSelectionPage = ({ userName, onSessionSelect, sessions }: SessionSelectionPageProps) => {
   return (
     <div className="page-enter p-6 sm:p-8 md:p-12">
       <header className="text-center mb-10">
@@ -18,7 +29,7 @@ const SessionSelectionPage = ({ userName, onSessionSelect }: SessionSelectionPag
         </p>
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {SESSIONS_DATA.map((session, index) => (
+        {sessions.map((session, index) => (
           <SessionCard
             key={session.id}
             title={session.title}
@@ -28,6 +39,11 @@ const SessionSelectionPage = ({ userName, onSessionSelect }: SessionSelectionPag
           />
         ))}
       </div>
+      {sessions.length === 0 && (
+        <div className="text-center py-12">
+          <p className="text-muted-foreground text-lg">No courses available at the moment.</p>
+        </div>
+      )}
     </div>
   );
 };
